@@ -192,14 +192,13 @@ confirmationButton.addEventListener("click", () => {
   };
 
   // Vérification si les champs du formulaire sont remplis et correctement
-  /*
   checkFormFields();
   ValidateEmail(email);
   ValidateNamesAndCity(lastName);
   ValidateNamesAndCity(firstName);
   ValidateNamesAndCity(city);
   ValidateAddress(address);
-  */
+
   fetchPost(contact);
 }); //fin  addEventListener
 
