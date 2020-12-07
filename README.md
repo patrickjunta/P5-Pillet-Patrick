@@ -1,3 +1,6 @@
+Voici le projet P5 de Patrick Pillet.
+En-dessous le README.md initial du projet.
+
 # Orinoco #
 
 This is the back end server for Project 5 of the Junior Web Developer path.
