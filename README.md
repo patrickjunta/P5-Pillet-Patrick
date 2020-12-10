@@ -1,4 +1,4 @@
-Voici le projet P5 de Patrick Pillet pour le programme d'Openclassrooms.
+Voici le projet P5 de ### Patrick Pillet ### pour le programme d'Openclassrooms.
 
 P5-Pillet-Patrick\
 |\
