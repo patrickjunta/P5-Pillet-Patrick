@@ -1,7 +1,7 @@
 Voici le projet P5 de Patrick Pillet pour le programme d'Openclassrooms.
 
-P5-Pillet-Patrick/
-|
+P5-Pillet-Patrick\
+|\
 |– backend/ #backend identique à celui du repository à cloner\
 |   |– controllers #teddy.js\
 |   |– images # images pour fonctionnement API\
