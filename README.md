@@ -1,5 +1,5 @@
 Voici le projet P5 de Patrick Pillet pour le programme d'Openclassrooms.
-
+###
 P5-Pillet-Patrick/
 |
 |– backend/             #backend identique à celui du repository à cloner 
@@ -16,6 +16,7 @@ P5-Pillet-Patrick/
 |   |– vendor  # bootstrap et jquery
 |   ...
 ...
+###
 
 En-dessous le README.md initial du projet.
 
