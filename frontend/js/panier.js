@@ -1,6 +1,15 @@
 let containerCart = document.getElementById("containerCart");
 let containerForm = document.getElementById("containerForm");
 
+
+let namesAndCityFormat = /^[a-zA-Z ]+$/;
+let mailFormat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+let addressFormat = /([0-9]*) ?([a-zA-Z,\. ]*) ?([0-9]{5}) ?([a-zA-Z]*)*$/;
+
+let contact = {};
+let product = "";
+let products = [];
+
 let cart =
   localStorage.getItem("cart") === null
     ? []
@@ -10,10 +19,6 @@ let summedPrice =
   localStorage.getItem("summedPrice") === null
     ? 0
     : JSON.parse(localStorage.getItem("summedPrice"));
-
-let contact = {};
-let product = "";
-let products = [];
 
 for (let product of cart) {
   fetch("http://localhost:3000/api/teddies/" + product.id)
@@ -30,25 +35,6 @@ for (let product of cart) {
 } //fin boucle for of
 
 localStorage.setItem("products", JSON.stringify(products));
-
-function appendData(data, color) {
-  containerCart.innerHTML += `<div class="col-lg-4 col-md-6 mb-4">
-  <div class="card h-100">
-    <a href="produit.html?id=${data._id}"><img class="card-img-top" src="${
-    data.imageUrl
-  }" alt=""></a>
-    <div class="card-body">
-      <h4 class="card-title"> 
-        <a id="productUrl" href="produit.html?id=${data._id}">${data.name}</a>
-      </h4>
-      <h5 class="card-price">${color}</h5>
-      <h5 class="card-price">${data.price / 100}&#8364;</h5>
-
-      <a href="produit.html?id=${
-        data._id
-      }" class="btn btnSave details px-auto">Voir produit</a><br /> 
-    </div>`;
-} //function appendData fin
 
 containerForm.innerHTML = `
 <form>
@@ -96,17 +82,54 @@ containerForm.innerHTML = `
     <a id="confirmationButton" class="btn btn-primary">Confirmer ma commande</a>
       <div>
     </form>`;
+  let confirmationButton = document.getElementById("confirmationButton");
+  let lastName = document.getElementById("lastName");
+  let firstName = document.getElementById("firstName");
+  let address = document.getElementById("address");
+  let city = document.getElementById("city");
+  let email = document.getElementById("email");
+  let formElements = [firstName, lastName, address, city, email];
 
-let confirmationButton = document.getElementById("confirmationButton");
-let lastName = document.getElementById("lastName");
-let firstName = document.getElementById("firstName");
-let address = document.getElementById("address");
-let city = document.getElementById("city");
-let email = document.getElementById("email");
-let formElements = [firstName, lastName, address, city, email];
-let namesAndCityFormat = /^[a-zA-Z ]+$/;
-let mailFormat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-let addressFormat = /([0-9]*) ?([a-zA-Z,\. ]*) ?([0-9]{5}) ?([a-zA-Z]*)*$/;
+confirmationButton.addEventListener("click", () => {
+  let contact = {
+    firstName: firstName.value,
+    lastName: lastName.value,
+    address: address.value,
+    city: city.value,
+    email: email.value,
+  };
+
+  // Vérification si les champs du formulaire sont remplis et correctement
+  checkFormFields();
+  ValidateEmail(email);
+  ValidateNamesAndCity(lastName);
+  ValidateNamesAndCity(firstName);
+  ValidateNamesAndCity(city);
+  ValidateAddress(address);
+
+  fetchPost(contact);
+}); //fin  addEventListener
+
+function appendData(data, color) {
+  containerCart.innerHTML += `<div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100">
+        <a href="produit.html?id=${data._id}"><img class="card-img-top" src="${
+    data.imageUrl
+  }" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title"> 
+            <a id="productUrl" href="produit.html?id=${data._id}">${
+    data.name
+  }</a>
+          </h4>
+          <h5 class="card-price">${color}</h5>
+          <h5 class="card-price">${data.price / 100}&#8364;</h5>
+    
+          <a href="produit.html?id=${
+            data._id
+          }" class="btn btnSave details px-auto">Voir produit</a><br /> 
+        </div>`;
+} //function appendData fin
 
 function checkFormFields() {
   for (let element of formElements) {
@@ -181,52 +204,3 @@ function fetchPost(contact) {
       console.log("error" + err);
     });
 }
-
-confirmationButton.addEventListener("click", () => {
-  let contact = {
-    firstName: firstName.value,
-    lastName: lastName.value,
-    address: address.value,
-    city: city.value,
-    email: email.value,
-  };
-
-  // Vérification si les champs du formulaire sont remplis et correctement
-  checkFormFields();
-  ValidateEmail(email);
-  ValidateNamesAndCity(lastName);
-  ValidateNamesAndCity(firstName);
-  ValidateNamesAndCity(city);
-  ValidateAddress(address);
-
-  fetchPost(contact);
-}); //fin  addEventListener
-
-
-
-
-
-/*
-const fetchPost = async (resultat) => {
-  try {
-    const options = {
-      method: "POST",
-      body: JSON.stringify({ contact: resultat, products: products }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const res = await fetch("http://localhost:3000/api/teddies/order", options);
-    if (!res.ok) {
-      throw new Error(res.status);
-    }
-    const responseData = await res.json();
-    let orderId = responseData.orderId;
-    localStorage.setItem("orderId", JSON.stringify(orderId));
-    setTimeout(function () {
-      document.location.href = "confirmation.html";
-    }, 2000);
-  } catch (error) {
-    console.log(error);
-  }
-};*/

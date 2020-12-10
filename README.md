@@ -1,4 +1,22 @@
-Voici le projet P5 de Patrick Pillet.
+Voici le projet P5 de Patrick Pillet pour le programme d'Openclassrooms.
+
+P5-Pillet-Patrick/
+|
+|– backend/             #backend identique à celui du repository à cloner 
+|   |– controllers       # teddy.js
+|   |– images  # images pour fonctionnement API
+|   |– models       # mongoose
+|   |– node_modules  # node_modules
+|   |– routes       # routes pour get,order,id 
+|   ...
+|– frontend/
+|   |– css       # css
+|   |– images-logos  # images-logos et fav-icons
+|   |– js       # 4 pages du site
+|   |– vendor  # bootstrap et jquery
+|   ...
+...
+
 En-dessous le README.md initial du projet.
 
 # Orinoco #
